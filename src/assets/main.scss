@@ -6,8 +6,19 @@ html,
 body,
 #app {
   margin: 0;
-  background-color: var(--bgc);
   color: var(--td-text-color-primary);
+}
+html,
+body {
+  background-color: var(--bgc);
+}
+
+/* 淡雅水墨底图（浅色模式） */
+:root:not(.dark):not([theme-mode="dark"]) body {
+  background-color: #efe7d8;
+  background-image: url("./bg.png");
+  background-size: cover;
+  background-position: center top;
 }
 
 img {
@@ -186,8 +197,9 @@ body.is-electron {
 }
 :root,
 :root[theme-mode="light"] {
-  --bgc: #ebebeb;
-  --page: #fff;
+  --bgc: #efe7d8;
+  --page: #fbf8f2;
+  --page-soft: rgba(251, 248, 242, 0.84);
   --td-brand-color-1: #f3f3f3;
   --td-brand-color-2: #e3e3e3;
   --td-brand-color-3: #c6c6c6;
@@ -323,6 +335,7 @@ body.is-electron {
 :root[theme-mode="dark"] {
   --bgc: #3a3b3b;
   --page: #242424;
+  --page-soft: rgba(36, 36, 36, 0.84);
   --td-brand-color-1: #000000;
   --td-brand-color-2: #303030;
   --td-brand-color-3: #434343;

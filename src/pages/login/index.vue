@@ -10,9 +10,9 @@
         </t-form>
       </t-dialog>
       <div class="logoBox fc">
-        <div class="logoImg"></div>
+        <img class="logoImg" :src="logo" alt="元途" />
         <div class="fc c">
-          <span class="logoText">ToonFlow</span>
+          <span class="logoText">元途</span>
           <span class="slogan">{{ $t("login.slogan") }}</span>
         </div>
       </div>
@@ -98,7 +98,7 @@ const handleLogin = () => {
     .then(({ data }) => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.id);
-      Router.push("/project");
+      Router.push("/console");
       window.$message.success($t("login.loginSuccess"));
       state.value.loginLoading = false;
     })
@@ -133,11 +133,10 @@ const handleLogin = () => {
       .logoImg {
         width: 64px;
         height: 64px;
-        background-color: var(--td-text-color-primary);
-        mask: url("@/assets/logo.svg") no-repeat center;
-        mask-size: contain;
-        -webkit-mask: url("@/assets/logo.svg") no-repeat center;
-        -webkit-mask-size: contain;
+        border-radius: 16px;
+        object-fit: cover;
+        display: block;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
       }
 
       .logoText {

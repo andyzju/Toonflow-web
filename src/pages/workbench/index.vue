@@ -1,12 +1,12 @@
 <template>
   <div class="main" :style="{ height: isElectron ? 'calc(100vh - 32px)' : '100vh' }">
     <div class="menu fc jb">
-      <div class="logoBox c">
-        <div class="logo"></div>
+      <div class="logoBox c" @click="router.push('/console')" title="元途 · 导演工作台">
+        <img class="logo" :src="logoImg" alt="元途" />
       </div>
       <div class="itemBox fc ac">
         <t-tooltip
-          :content="menu.labelKey ? $t(menu.labelKey) : ''"
+          :content="menu.label ? menu.label : (menu.labelKey ? $t(menu.labelKey) : '')"
           placement="right"
           destroyOnClose
           :showArrow="false"
@@ -19,21 +19,11 @@
         </t-tooltip>
       </div>
       <div class="footItem fc ac">
-        <t-tooltip :content="$t('workbench.menu.feedbackQuestions')" placement="right" destroyOnClose :showArrow="false">
-          <div class="item c" @click="openFeedback">
-            <i-bill class="icon" />
-          </div>
-        </t-tooltip>
         <t-tooltip :content="$t('workbench.menu.settings')" placement="right" destroyOnClose :showArrow="false">
           <div class="item c" @click="showSetting = true">
             <t-badge :count="needUpdate ? 1 : 0" dot>
               <i-setting-one class="icon" />
             </t-badge>
-          </div>
-        </t-tooltip>
-        <t-tooltip :content="$t('workbench.menu.jumpGithub')" placement="right" destroyOnClose :showArrow="false">
-          <div class="item c" @click="jumpGithub">
-            <i-github-one class="icon" />
           </div>
         </t-tooltip>
       </div>
@@ -78,6 +68,7 @@ import axios from "@/utils/axios";
 import setting from "@/components/setting/index.vue";
 import hello from "@/components/hello.vue";
 import projectStore from "@/stores/project";
+import logoImg from "@/assets/logo.png";
 const { project } = storeToRefs(projectStore());
 import settingStore from "@/stores/setting";
 import { NotifyPlugin } from "tdesign-vue-next";
@@ -85,7 +76,10 @@ const { showSetting, isElectron, needUpdate } = storeToRefs(settingStore());
 const menuList = ref([
   { type: "btn", path: "/project", labelKey: "workbench.menu.myProject", icon: "i-folder-close" },
   { type: "btn", path: "/task", labelKey: "workbench.menu.taskCenter", icon: "i-view-list" },
-  // { type: "divider" },
+  { type: "divider" },
+  { type: "btn", path: "/assets", label: "资产", icon: "i-receive" },
+  { type: "btn", path: "/skills", label: "技能", icon: "i-magic-wand" },
+  { type: "btn", path: "/publish", label: "发布", icon: "i-send" },
 ]);
 
 const rightBtnList = ref([
@@ -208,7 +202,7 @@ onUnmounted(() => {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: var(--page);
+    background-color: var(--page-soft);
     border-radius: 16px;
     padding-top: 16px;
     padding-bottom: 16px;
@@ -216,14 +210,14 @@ onUnmounted(() => {
     .logoBox {
       width: 100%;
       height: fit-content;
+      cursor: pointer;
       .logo {
-        width: 60%;
-        aspect-ratio: 1/1;
-        background-color: var(--td-text-color-primary);
-        mask: url("@/assets/logo.svg") no-repeat center;
-        mask-size: contain;
-        -webkit-mask: url("@/assets/logo.svg") no-repeat center;
-        -webkit-mask-size: contain;
+        width: 44px;
+        height: 44px;
+        border-radius: 11px;
+        object-fit: cover;
+        display: block;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
       }
     }
     .itemBox {
@@ -271,7 +265,7 @@ onUnmounted(() => {
   .view {
     flex: 1;
     margin-left: 16px;
-    background-color: var(--page);
+    background-color: var(--page-soft);
     border-radius: 16px;
     width: 100%;
     overflow-x: hidden;

@@ -17,8 +17,12 @@ const router = createRouter({
     {
       path: "/workbench",
       component: () => import("@/pages/workbench/index.vue"),
-      redirect: "/project",
+      redirect: "/console",
       children: [
+        {
+          path: "/console",
+          component: () => import("@/views/console/index.vue"),
+        },
         {
           path: "/project",
           component: () => import("@/views/project/index.vue"),
@@ -54,6 +58,14 @@ const router = createRouter({
         {
           path: "/assets",
           component: () => import("@/views/assets/index.vue"),
+        },
+        {
+          path: "/skills",
+          component: () => import("@/views/skills/index.vue"),
+        },
+        {
+          path: "/publish",
+          component: () => import("@/views/publish/index.vue"),
         },
         {
           path: "/test",
